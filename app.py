@@ -3,7 +3,7 @@ import os
 import platform
 import socket
 import time
-
+from datetime import datetime
 from flask import Flask, jsonify, render_template_string
 
 START_TIME = time.time()
@@ -18,7 +18,10 @@ def load_config(path='config.json'):
 
 @app.get('/api/health')
 def health():
-	return jsonify({'status': 'ok'})
+	return jsonify({
+		'status': 'ok',
+		'timestamp': datetime.utcnow().isoformat() + 'Z'
+	})
 
 
 @app.get('/api/config')
